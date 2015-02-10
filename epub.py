@@ -9,6 +9,7 @@ import os
 import binascii
 from collections import OrderedDict
 import xml.etree.cElementTree as ET
+from lxml import html as hlxml
 
 try:
   from lxml import etree
@@ -388,10 +389,14 @@ def downloadContent(url):
 		web_pg = aResp.read()
 	return web_pg #TODO: option to resize large image files?
 
-bURL = input("Enter URL of full-text volume to download.\nIf the volume isn't full-text, this program will fail.\nURL: ")
-fullImage = input ("Do you want to download full-sized images? Or just thumbnails?\nFull images are much larger, and the resulting epub file could be easily over 20MB.\nDownload full-sized images? [Y/N]: ")
+print "\n"
+bURL = raw_input("Enter URL of full-text volume to download.\nIf the volume isn't full-text, this program will fail.\nURL: ")
+print "\n"
+fullImage = raw_input ("Do you want to download full-sized images? Or just thumbnails?\nFull images are much larger, and the resulting epub file could be easily over 20MB.\nDownload full-sized images? [Y/N]: ")
+print "\n"
 fullImage = (fullImage == 'y' or fullImage == 'Y')
-version = input("Enter epub version to use.\nSupported versions are v2 and 3.\nIf in doubt, use version 2.\nVersion to use? [2/3]: ")
+version = raw_input("Enter epub version to use.\nSupported versions are v2 and 3.\nIf in doubt, use version 2.\nVersion to use? [2/3]: ")
+print "\n"
 version = 3 if version == '3' else 2
 
 baseurl = 'http://www.baka-tsuki.org'
@@ -402,8 +407,7 @@ baseurl = 'http://www.baka-tsuki.org'
 
 ##Get web page
 web_pg = downloadContent(bURL)
-
-dom = etree.fromstring(web_pg)
+dom = hlxml.fromstring(web_pg)
 
 #dom = etree.parse('/tmp/test.html')
 
@@ -416,6 +420,8 @@ toc = body.xpath(".//*[@id='toc']")[0]
 content = dom.xpath(".//*[@id='mw-content-text']")[0]
 #content.remove(toc)
 for child in content.xpath(".//*[@class='magnify']"):
+	child.getparent().remove(child)
+for child in content.xpath("center"):
 	child.getparent().remove(child)
 
 author = 'Author unspecified' #TODO: find this info?
