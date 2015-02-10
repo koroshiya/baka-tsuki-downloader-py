@@ -1,0 +1,641 @@
+/* Based on CSS found at http://wiki.mobileread.com/wiki/CSS_template */
+
+/* Page Margin */
+@page {
+     margin-top:30px;
+     margin-bottom:20px;
+}
+ 
+body {
+     margin-right:30px;
+     margin-left:30px;
+     padding:0;
+} /* Pixels are used for @page and body (for the ereaders that will recognize 
+ them) because pixels don't scale and if a reader increases the text size, we 
+ don't want the margins to blow up. Note that these values will produce 
+ extra-wide margins on the Kindle Fire, because the view for that ereader is 
+ narrow already. */
+
+/* Images */
+img {
+     max-width:100%;
+     oeb-column-number:1;
+     display:inline-block;
+}
+.video {
+     max-width:100%;
+}
+.noresize {
+    width:auto;
+    display:block;
+}    
+div.figure {
+     text-align:center;
+     text-indent:0;
+     margin-top:1em;
+}
+div.caption {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:small;
+     text-align:center;
+     text-indent:0;
+     margin:1em 0;
+     -webkit-hyphens:none;
+     -moz-hyphens:none;
+     hyphens:none;
+}
+span.captioncredit {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:x-small;
+     text-align:center;
+     text-indent:0;
+     margin:0;
+     -webkit-hyphens:none;
+     -moz-hyphens:none;
+     hyphens:none;
+}
+.centered-art {
+     font-style:normal;
+     font-weight:normal;
+     text-align:center;
+     margin:1em 0;
+     text-indent:0;
+}
+
+/* Links */
+a {
+     font-style:italic;
+     color:blue;
+     text-decoration:none;
+}
+
+/* Spans */
+span.emphasis {
+     font-weight:normal;
+     font-style:italic;
+} /* Note that it is more semantic to use <em>Text</em> */
+ 
+span.strong {
+     font-weight:bold;
+     font-style:normal;
+} /* Note that it is more semantic to use <strong>Text</strong> */
+ 
+span.strongemphasis {
+     font-weight:bold;
+     font-style:italic;
+} /* Note that it is more semantic to use <strong><em>Text</em></strong> */
+ 
+span.applebug {} /* Used to cure an Apple bug regarding centered text, might not be needed anymore */
+
+/* Cover Page */
+img.cover-image {
+	max-width:100%;
+	max-height:100%;
+	display:block;
+}
+
+/* Title Page */
+.header .titlepage {} /* head group for title page */ 
+ 
+h1.title {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:x-large;
+     text-align:center;
+     font-weight:bold;
+     color:[insert];
+     margin-top:2em;
+     text-indent:0;
+     -webkit-hyphens:none;
+     -moz-hyphens:none;
+     hyphens:none;
+}
+ 
+h1.sub {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:medium;
+     text-align:center;
+     font-weight:bold;
+     font-style:italic;
+     margin-top:1em;
+     text-indent:0;
+     -webkit-hyphens:none;
+     -moz-hyphens:none;
+     hyphens:none;
+}
+ 
+h1.author {
+     font-family:Verdana, Geneva, sans-serif;
+     text-align:center;
+     margin-top:4em;
+     text-indent:0;
+     -webkit-hyphens:none;
+     -moz-hyphens:none;
+     hyphens:none;
+}
+
+/* Colophon */
+p.colophon1 {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:small;
+     text-align:center;
+     margin-top:4em;
+     text-indent:0;
+     -webkit-hyphens:none;
+     -moz-hyphens:none;
+     hyphens:none;
+}
+ 
+p.colophon2 {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:x-small;
+     margin:0;
+     text-indent:0;
+     text-align:center;
+     -webkit-hyphens:none;
+     -moz-hyphens:none;
+     hyphens:none;
+}
+
+/* Table of Contents */
+p.contents1 {
+     text-align:center;
+     margin-top:1em;
+     -webkit-hyphens:none;
+     -moz-hyphens:none;
+     hyphens:none;
+}
+ 
+p.contents2 {
+     text-align:center;
+     margin-top:.5em;
+     -webkit-hyphens:none;
+     -moz-hyphens:none;
+     hyphens:none;
+}
+
+/* Copyright Page */
+p.copyright1 {
+     font-size:x-small;
+     margin-top:1em;
+     text-align:center;
+     -webkit-hyphens:none;
+     -moz-hyphens:none;
+     hyphens:none;
+}
+ 
+p.copyright2 {
+     font-size:x-small;
+     margin:0;
+     text-align:center;
+     -webkit-hyphens:none;
+     -moz-hyphens:none;
+     hyphens:none;
+}
+
+/* Market Copy */
+p.marketingcopy {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:large;
+     text-align:center;
+     margin-left:2em;
+}
+
+/* Headings */
+/* Base */
+h1, h2, h3, h4, h5, h6 {
+     page-break-after:avoid;
+     -webkit-hyphenate-lines: 0 !important;
+     -webkit-hyphens: none !important; 
+     adobe-hyphenate: none !important; 
+     -moz-hyphens: none !important; 
+     hyphens: none !important;
+     hyphenate-lines: 0;
+     color:#000; /*This color "black" will apply to all heads unless a color is applied to a class */
+}
+
+/* Parts or Chapters */
+.header .chapter {} /* head group for chapter titles */ 
+ 
+ 
+h2.num {
+     font-family:Verdana, Geneva, sans-serif;
+     text-align:left;
+     text-indent:0;
+     margin-top:4em;
+}
+h2.title {
+     font-family:Verdana, Geneva, sans-serif;
+     text-align:left;
+     margin-bottom:2em;
+     text-indent:0;
+}
+h2.titlecenter {
+     font-family:Verdana, Geneva, sans-serif;
+     text-align:center;
+     margin-bottom:2em;
+     text-indent:0;
+}
+h3.num {
+     font-family:Verdana, Geneva, sans-serif;
+     text-align:left;
+     text-indent:0;
+     margin-top:4em;
+}
+h3.title {
+     font-family:Verdana, Geneva, sans-serif;
+     text-align:left;
+     margin-bottom:2em;
+     text-indent:0;
+}
+h3.titlecenter {
+     font-family:Verdana, Geneva, sans-serif;
+     text-align:center;
+     margin-bottom:2em;
+     text-indent:0;
+}
+
+/* Text Headings */
+/* Level 1 text head */
+h4 {
+     font-family:Verdana, Geneva, sans-serif;
+     text-align:left;
+     margin:1em 0 0 0;
+     text-indent:2em;
+}
+/* Level 2 text head */
+h5 {
+     font-family:serif;
+     text-align:left;
+     font-weight:bold;
+     font-style:italic;
+     margin:1em 0 0 0;
+     text-indent:2em;
+}
+/* Level 3 text head */
+h6 {
+     font-family:serif;
+     text-align:left;
+     font-weight:bold;
+     font-style:italic;
+     margin:1em 0 0 0;
+     text-indent:2em;
+}
+
+/* Normal Text */
+p {
+     line-height:1.5em;
+     text-align:justify;
+     widows:2;
+     orphans:2;
+     margin:0;
+     text-indent:0; /* This .Mobi7 hack is needed because that format automatically applies paragraph indents on all p classes */
+     -webkit-hyphenate-before:3; /* These webit hyphenations settings will work for iBooks */
+     hyphenate-before:3; /* These hyphenation settings are future-proofing for ereaders that might honor these values in the future */
+     -webkit-hyphenate-after:3;
+     hyphenate-after:3;
+     -webkit-hyphenate-lines:2;
+     hyphenate-lines:2;
+}
+ 
+p.first { text-indent:0;} /* First Paragraph not indented */
+ 
+h2+p {text-indent:0;} /* alternate method, first paragraph after h2 will not intent */
+ 
+ 
+p.first:first-letter, span.drop-cap {
+	vertical-align:base-line;
+	font-size:2em; 
+	line-height:1em;
+	margin-right:.05em;
+	font-weight :700;
+} /* Initial Drop Cap in first paragrpah */
+ 
+ 
+p.ind {
+     text-indent:2em;
+     margin:0;
+}
+ 
+p.indspace {
+     text-indent:2em;
+     margin-top:1em;
+}
+ 
+p.noind {
+ 
+}
+
+/* Page Break Woes */
+div.keeptext {
+     page-break-inside:avoid;
+     margin:0 !important;
+}
+
+/* Centered */
+p.center {
+     text-align:center;
+     text-indent:0;
+     -webkit-hyphens:none;
+     -moz-hyphens:none;
+     hyphens:none;
+     margin:0;
+}
+
+/* Extract */
+p.extractnormal {
+     margin:1em 0 0 1em;
+     text-indent:0;
+     text-align:left;
+}
+
+p.extractcourier {
+     font-family:"Courier New", Courier, monospace;
+     text-indent:0;
+     margin:1em 0 0 1em;
+     text-align:left;
+     -webkit-hyphens:none;
+     -moz-hyphens:none;
+     hyphens:none;
+}
+
+p.handwriting {
+     font-family:"BradleyHandITCTT-Bold", "Comic Sans MS", cursive;
+     text-indent:0;
+     margin:1em 0 0 1em;
+     line-height: 1.5;
+     -webkit-hyphens:none;
+     -moz-hyphens:none;
+     hyphens:none;
+}
+
+/* Lists */
+p.listhead {
+     margin:1em 0 0 2em;
+     font-weight:bold;
+     font-style:normal;
+     -webkit-hyphens:none;
+     -moz-hyphens:none;
+     hyphens:none;
+     page-break-after:avoid;
+     text-align:left;
+}
+
+ol {
+     margin:1em 0 1em 0;
+}
+ol.nospace {
+     margin:0;
+}
+ul {
+     margin:1em 0 1em 0;
+}
+ul.nospace {
+     margin:0;
+}
+li {
+     line-height:1.5em;
+     orphans:2;
+     widows:2;
+     text-align:justify;
+}
+
+/* Sidebars */
+.aside .sidebar {
+     margin:1em 0 !important;
+     padding:1em 0 !important;
+     border:1px solid #178E7D;
+     page-break-inside:avoid;
+     background-color:[insert];
+}
+.aside .casestudy {
+     margin:1em 0 !important;
+     padding:1em 0 !important;
+     border:1px solid black;
+     background-color:[insert];
+     page-break-inside:avoid;
+}
+p.sbh1 {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:small;
+     text-align:left;
+     font-weight:bold;
+     font-style:normal;
+     -webkit-hyphens:none;
+     -moz-hyphens:none;
+     hyphens:none;
+     margin:0 1em;
+     color:[insert];
+}
+p.sbh2 {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:medium;
+     text-align:left;
+     font-weight:bold;
+     font-style:italic;
+     margin:0 1em 1em 1em;
+     -webkit-hyphens:none;
+     -moz-hyphens:none;
+     hyphens:none;
+     color:[insert];
+}
+p.sbh3 {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:small;
+     text-align:left;
+     font-weight:bold;
+     margin:1em 1em 0 1em;
+     text-indent:2em;
+     -webkit-hyphens:none;
+     -moz-hyphens:none;
+     hyphens:none;
+}
+p.sbf {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:small;
+     margin:0 1em;
+}
+p.sb {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:small;
+     margin:0 1em;
+     text-indent:2em;
+}
+p.sbextract {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:small;
+     margin:1em;
+}
+li.sbol {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:small;
+     margin:0 1em 0 0;
+}
+li.sbul {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:small;
+     margin:0 1em 0 0;
+}
+
+/* Tables */
+table {
+     border-collapse:collapse;
+     margin:1em 0 !important;
+     page-break-inside:avoid;
+     width:100%
+}
+td {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:small;
+     text-indent:0;
+     text-align:left;
+     -webkit-hyphens:none;
+     -moz-hyphens:none;
+     hyphens:none;
+     page-break-inside:avoid;
+     border-bottom:1px solid [insert color];
+     vertical-align:top;
+     padding:5px !important;
+}
+td.tt {
+     font-size:medium;
+     font-weight:bold;
+     text-align:center;
+     border-bottom-style:none;
+     color:[insert];
+}
+td.tch1 {
+     font-weight:bold;
+     text-align:center;
+     vertical-align:bottom;
+     background-color:[insert];
+     border-bottom-style:none;
+}
+td.tch2 {
+     font-weight:bold;
+     font-style:italic;
+     vertical-align:bottom;
+}
+td.tfn {
+     font-size:x-small;
+     border-bottom-style:none;
+}
+
+/* Recipes */
+p.recipe-title {
+     font-weight:bold;
+     font-size:x-large;
+     line-height:normal;
+     text-align:center;
+     margin:1em 0 0em 0 !important;
+     text-indent:0;
+     -webkit-hyphenate-lines:0;
+     -webkit-hyphens:none;
+     hyphens:none;
+     page-break-before:always;
+     color:[insert];
+}
+p.recipe-message {
+     font-style:italic;
+     text-align:center;
+     margin-top:.5em;
+     -webkit-hyphenate-lines:0;
+     -webkit-hyphens:none;
+     hyphens:none;
+}
+p.recipe-yield {
+     font-weight:bold;
+     text-align:center;
+     margin-top:1em;
+}
+p.recipe-ing-head {
+     font-weight:bold;
+     text-align:center;
+     margin-top:1.5em;
+}
+p.recipe-ingredients {
+     text-align:center;
+     -webkit-hyphenate-lines:0;
+     -webkit-hyphens:none;
+     hyphens:none;
+     -webkit-hyphenate-lines:0;
+     -webkit-hyphens:none;
+     hyphens:none;
+}
+p.recipe-instructions {
+     margin-top:1em;
+     text-align:center;
+}
+ol.recipe {
+     font-weight:bold;
+     color:[insert];
+     margin-top:1em;
+}
+/* this makes the recipe step number bold and a color for a little zip */
+ol p.recipestep {
+     line-height:1.5em;
+     text-align:justify;
+     widows:2;
+     orphans:2;
+     -webkit-hyphenate-before:3;
+     hyphenate-before:3;
+     -webkit-hyphenate-after:3;
+     hyphenate-after:3;
+     -webkit-hyphenate-lines:2;
+     hyphenate-lines:2;
+     color:[insert];
+     margin-top:.5em;
+}
+div.recipesidebarbox {
+     background-color:[insert];
+     margin:0 0 2em 0 !important;
+     padding:.5em !important;
+     page-break-inside:avoid;
+}
+p.recipesidebarhead {
+     font-family:Verdana, Geneva, sans-serif;
+     font-weight:bold;
+     font-size:small;
+     margin:0 !important;
+     text-align:left;
+     -webkit-hyphenate-lines:0;
+     -webkit-hyphens:none;
+     hyphens:none;
+     page-break-after:avoid;
+}
+p.recipesidebar {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:small;
+}
+
+/* Tables */
+table.recipe {
+     width:100%;
+     margin:2em 0 0 0;
+     page-break-inside:avoid;
+}
+th.recipe {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:x-small;
+     line-height:normal;
+     margin:0 !important;
+     padding:.5em !important;
+     text-align:left;
+     font-weight:bold;
+     -webkit-hyphenate-lines:0;
+     -webkit-hyphens:none;
+     hyphens:none;
+     page-break-after:avoid;
+     background-color:[insert];
+}
+td.recipestat {
+     font-family:Verdana, Geneva, sans-serif;
+     font-size:x-small;
+     line-height:normal;
+     margin:0;
+     padding:.5em .5em 0 .5em !important;
+     text-align:left;
+     -webkit-hyphenate-lines:0;
+     -webkit-hyphens:none;
+     hyphens:none;
+     width:auto;
+}
