@@ -57,7 +57,7 @@ def addOPFMeta(version, title, uuid, cover, coverimg, author, cList, fullImage, 
 
 	html = ET.Element('package')
 	html.set( "unique-identifier", 'bookid' )
-	html.set( "version", '2.0' )
+	html.set( "version", str(version) + '.0' )
 	html.set( "xmlns", 'http://www.idpf.org/2007/opf' )
 
 	html.set( "xmlns:dc", 'http://purl.org/dc/elements/1.1/' )
