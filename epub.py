@@ -409,7 +409,11 @@ class epubParser():
 
 		body = dom.xpath(".//*[@id='bodyContent']")[0]
 
-		toc = body.xpath(".//*[@id='toc']")[0]
+		tocs = body.xpath(".//*[@id='toc']")
+		if len(tocs) > 0:
+			toc = tocs[0]
+		else:
+			toc = None
 
 		content = dom.xpath(".//*[@id='mw-content-text']")[0]
 		#content.remove(toc)
@@ -495,26 +499,35 @@ class epubParser():
 
 		tocList = {'chapters': {}}
 
-		for li in toc.findall("ul/li"):
-			an = li.find('a')
-			num = an.find(".//*[@class='tocnumber']").text.zfill(3)
-			tex = an.find(".//*[@class='toctext']").text
-			tocList['chapters'][num] = {'title': tex, 'parts': {}}
-			uans = li.findall('ul/li/a')
+		if toc is not None:
+			for li in toc.findall("ul/li"):
+				an = li.find('a')
+				num = an.find(".//*[@class='tocnumber']").text.zfill(3)
+				tex = an.find(".//*[@class='toctext']").text
+				tocList['chapters'][num] = {'title': tex, 'parts': {}}
+				uans = li.findall('ul/li/a')
 
-			zf.writestr('OEBPS/content/'+num+'.html', self.parseNode(curH2, tex, content, 'h2', 'stylesheet.css', zf, doubleImages))
-			cList['chapter_'+num] = 'content/'+num+'.html'
-			curH2 += 1
-			
-			for uan in uans:
-				unum = uan.find(".//*[@class='tocnumber']").text.split('.')[-1].zfill(3)
-				utex = uan.find(".//*[@class='toctext']").text
-				tocList['chapters'][num]['parts'][unum] = {'title': utex}
-				#print "unum", unum
+				zf.writestr('OEBPS/content/'+num+'.html', self.parseNode(curH2, tex, content, 'h2', 'stylesheet.css', zf, doubleImages))
+				cList['chapter_'+num] = 'content/'+num+'.html'
+				curH2 += 1
 				
-				zf.writestr('OEBPS/content/'+num+'_'+unum+'.html', self.parseNode(curH3, utex, content, 'h3', 'stylesheet.css', zf, doubleImages))
-				cList['chapter_'+num+"_"+unum] = 'content/'+num+'_'+unum+'.html'
-				curH3 += 1
+				for uan in uans:
+					unum = uan.find(".//*[@class='tocnumber']").text.split('.')[-1].zfill(3)
+					utex = uan.find(".//*[@class='toctext']").text
+					tocList['chapters'][num]['parts'][unum] = {'title': utex}
+					#print "unum", unum
+					
+					zf.writestr('OEBPS/content/'+num+'_'+unum+'.html', self.parseNode(curH3, utex, content, 'h3', 'stylesheet.css', zf, doubleImages))
+					cList['chapter_'+num+"_"+unum] = 'content/'+num+'_'+unum+'.html'
+					curH3 += 1
+		else:
+			for child in content.xpath(".//*[@class='mw-headline']"):
+				tex = child.text
+				num = str(curH2 + 1)
+				tocList['chapters'][num] = {'title': tex, 'parts': {}}
+				zf.writestr('OEBPS/content/'+num+'.html', self.parseNode(curH2, tex, content, 'h2', 'stylesheet.css', zf, doubleImages))
+				cList['chapter_'+num] = 'content/'+num+'.html'
+				curH2 += 1
 
 		#reorder chapters and subchapters
 		tocList['chapters'] = OrderedDict(sorted(tocList['chapters'].iteritems(), key=lambda (x,y):float(x)))
