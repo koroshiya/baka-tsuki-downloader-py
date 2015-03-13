@@ -312,14 +312,10 @@ class epubParser():
 
 	def cleanET(self, html, convert=False, leaveHref=False):
 		htmlstr = ET.tostring(html, encoding='utf-8', method='html')
-		htmlstr = re.sub('<meta(.*?)>', r'<meta\1/>', htmlstr)
-		htmlstr = re.sub('<link(.*?)>', r'<link\1/>', htmlstr)
-		htmlstr = re.sub('<base(.*?)>', r'<base\1/>', htmlstr)
-		htmlstr = re.sub('<img(.*?)>', r'<img\1/>', htmlstr)
-		htmlstr = re.sub('<hr(.*?)>', r'<hr\1/>', htmlstr)
-		htmlstr = re.sub('<br(.*?)>', r'<br />', htmlstr)
-		htmlstr = re.sub('<table(.*?)>', r'<table>', htmlstr)
-		htmlstr = re.sub('<td(.*?)>', r'<td>', htmlstr)
+		for tag in ['meta', 'link', 'base', 'img', 'hr', 'br']:
+			htmlstr = re.sub('<'+tag+'(.*?)>', r'<'+tag+'\1/>', htmlstr)
+		for tag in ['table', 'td']:
+			htmlstr = re.sub('<'+tag+'(.*?)>', r'<'+tag+'>', htmlstr)
 		if not leaveHref:
 			htmlstr = re.sub('<a(.*?)>', r'<a>', htmlstr) #We don't want hrefs in the document
 		if convert:
