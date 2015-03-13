@@ -488,7 +488,7 @@ class epubParser():
 		curH3 = 0
 		if fullImage:
 			if not coverImg and len(cList) > 0:
-				coverImg = cList[cList.values()[0]]
+				coverImg = cList.values()[0]
 			if coverImg:
 				for key in cList.keys():
 					if cList[key] == coverImg:
