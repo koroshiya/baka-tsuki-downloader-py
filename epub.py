@@ -316,6 +316,7 @@ class epubParser():
 		htmlstr = re.sub('<link(.*?)>', r'<link\1/>', htmlstr)
 		htmlstr = re.sub('<base(.*?)>', r'<base\1/>', htmlstr)
 		htmlstr = re.sub('<img(.*?)>', r'<img\1/>', htmlstr)
+		htmlstr = re.sub('<hr(.*?)>', r'<hr\1/>', htmlstr)
 		htmlstr = re.sub('<br(.*?)>', r'<br />', htmlstr)
 		htmlstr = re.sub('<table(.*?)>', r'<table>', htmlstr)
 		htmlstr = re.sub('<td(.*?)>', r'<td>', htmlstr)
