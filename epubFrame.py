@@ -36,6 +36,7 @@ SETTING_ORDER = 680
 SETTING_ORDER_MENU = 681
 SETTING_VERSION_MENU = 682
 SETTING_FULLIMAGES_MENU = 683
+SETTING_COMBINE_MENU = 684
 
 HOME_DIR = expanduser("~")
 if os.name == 'nt':
@@ -61,37 +62,43 @@ class epubThread(Thread):
 	def run(self):
 		wx.CallAfter(self.frame.SetLocked, True)
 		if self.pType == 0:
+			first = True
+			combine = self.frame.menuItemSettingsCombineTrue.IsChecked()
 			for line in self.lines:
 				if self.parser.cancel:
 					break
 				elif self.order:
-					self.ParseFirstThread(line)
+					self.ParseFirstThread(line, first, combine)
 				else:
-					self.ParseLastThread(line)
+					self.ParseLastThread(line, first, combine)
+				first = False
 		elif self.pType == 1:
-			self.ParseLastThread(self.lines)
+			self.ParseLastThread(self.lines, True, False)
 		else:
-			self.ParseFirstThread(self.lines)
+			self.ParseFirstThread(self.lines, True, False)
 		wx.CallAfter(self.frame.SetLocked, False)
 		if self.parser.cancel:
 			wx.CallAfter(self.frame.UiPrint, '')
 
-	def ParseFirstThread(self, line):
-		self.ParseLine(line)
+	def ParseFirstThread(self, line, first, combine):
+		self.ParseLine(line, first, combine)
 		if not self.parser.cancel:
 			wx.CallAfter(self.frame.UiClear, False)
 
-	def ParseLastThread(self, line):
-		self.ParseLine(line)
+	def ParseLastThread(self, line, first, combine):
+		self.ParseLine(line, first, combine)
 		if not self.parser.cancel:
 			wx.CallAfter(self.frame.UiClear, False)
 
-	def ParseLine(self, line):
+	def ParseLine(self, line, first, combine):
 		global HOME_DIR
 		self.parser.start(
 			line, HOME_DIR, 
 			self.frame.menuItemSettingsFullImagesTrue.IsChecked(), 
-			3 if self.frame.menuItemSettingsVersion3.IsChecked() else 2)
+			3 if self.frame.menuItemSettingsVersion3.IsChecked() else 2,
+			first,
+			combine
+		)
 
 
 class epubFrame(wx.Frame):
@@ -168,6 +175,11 @@ class epubFrame(wx.Frame):
 		self.menuItemSettingsFullImagesFalse = menuSettingsFullImages.AppendRadioItem(SETTING_ORDER, 'No')
 		self.menuItemSettingsFullImagesTrue = menuSettingsFullImages.AppendRadioItem(SETTING_ORDER, 'Yes')
 		menuSettingsFullImages.Check(self.menuItemSettingsFullImagesFalse.GetId(), True)
+		
+		menuSettingsCombine = wx.Menu()
+		self.menuItemSettingsCombineFalse = menuSettingsCombine.AppendRadioItem(SETTING_ORDER, 'Leave separate')
+		self.menuItemSettingsCombineTrue = menuSettingsCombine.AppendRadioItem(SETTING_ORDER, 'Combine Epubs')
+		menuSettingsCombine.Check(self.menuItemSettingsFullImagesFalse.GetId(), True)
 
 		#menuItemOpen.SetBitmap(wx.Bitmap('file.png'))
 
@@ -189,6 +201,7 @@ class epubFrame(wx.Frame):
 		menuSettings.AppendMenu(SETTING_ORDER_MENU, '&Parse All Order', menuSettingsOrder)
 		menuSettings.AppendMenu(SETTING_VERSION_MENU, '&Version Of EPUB', menuSettingsVersion)
 		menuSettings.AppendMenu(SETTING_FULLIMAGES_MENU, '&Download Full Images', menuSettingsFullImages)
+		menuSettings.AppendMenu(SETTING_COMBINE_MENU, '&Combine Downloaded Epubs', menuSettingsCombine)
 
 		menubar.Append(menuFile, '&File')
 		menubar.Append(menuParse, '&Parse')
