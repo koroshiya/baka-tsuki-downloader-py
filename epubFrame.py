@@ -88,7 +88,7 @@ class epubThread(Thread):
 	def ParseLastThread(self, line, first, combine):
 		self.ParseLine(line, first, combine)
 		if not self.parser.cancel:
-			wx.CallAfter(self.frame.UiClear, False)
+			wx.CallAfter(self.frame.UiClear, True)
 
 	def ParseLine(self, line, first, combine):
 		global HOME_DIR
