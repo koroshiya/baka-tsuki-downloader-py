@@ -12,6 +12,7 @@ import binascii
 from collections import OrderedDict
 import xml.etree.cElementTree as ET
 from lxml import html as hlxml
+from bs4 import BeautifulSoup
 
 try:
   from lxml import etree
@@ -312,16 +313,8 @@ class epubParser():
 
 	def cleanET(self, html, convert=False, leaveHref=False):
 		htmlstr = ET.tostring(html, encoding='utf-8', method='html')
-		for tag in ['meta', 'link', 'base', 'img', 'hr', 'br']:
-			htmlstr = re.sub('<'+tag+'(.*?)>', r'<'+tag+'\1/>', htmlstr)
-		for tag in ['table', 'td']:
-			htmlstr = re.sub('<'+tag+'(.*?)>', r'<'+tag+'>', htmlstr)
-		if not leaveHref:
-			htmlstr = re.sub('<a(.*?)>', r'<a>', htmlstr) #We don't want hrefs in the document
-		if convert:
-			etreeHTML = etree.fromstring(htmlstr)
-			htmlstr = etree.tostring(etreeHTML, pretty_print=True)
-		return htmlstr
+		soup = BeautifulSoup(htmlstr)
+		return str(soup)
 
 	def parseNode(self, inx, tex, content, tag, css, zf, doubleImages):
 
@@ -361,7 +354,6 @@ class epubParser():
 					skipNext = False
 					continue
 				elif n.tag == 'img':
-					print n.get('src')
 					if n.get('src') not in doubleImages:
 						ptag = etree.SubElement(body, 'p')
 						ptag.append(n) #TODO: check img source; only add if not used elsewhere
@@ -384,12 +376,16 @@ class epubParser():
 		return self.cleanET(html, True)
 
 	def downloadContent(self, url):
-		#return ' ' #Uncomment when testing to avoid downloads
+		#if url[-4:] in ['.png', '.jpg']:
+		#	return ' ' #Uncomment when testing to avoid downloads
 		r = self.http.request('GET', url)
-		print r.status
 		return r.data #TODO: option to resize large image files?
 
-	def start(self, bURL, targetDir, fullImage=False, version=2):
+	def start(self, bURL, targetDir, fullImage=False, version=2, first=True, combine=False):
+		#TODO: if first, give name to epub
+		#TODO: if not, modify existing epub
+		#TODO: second start method instead? One that accepts multiple parameters?
+		#TODO: combine output files into one epub
 		baseurl = 'http://www.baka-tsuki.org'
 		print bURL
 
